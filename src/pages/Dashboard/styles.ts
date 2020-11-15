@@ -24,6 +24,8 @@ export const ProductList = styled(
   FlatList as new () => FlatList<Product>,
 ).attrs({
   numColumns: 2,
+  collapsable: true,
+  pointerEvents: 'box-none',
 })`
   flex: 1;
   padding: 0 10px;
