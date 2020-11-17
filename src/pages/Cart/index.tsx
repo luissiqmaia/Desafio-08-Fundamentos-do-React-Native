@@ -39,14 +39,14 @@ const Cart: React.FC = () => {
   const { increment, decrement, products } = useCart();
 
   const handleIncrement = React.useCallback(
-    async (id: string) => {
+    async (id: string): Promise<void> => {
       await increment(id);
     },
     [increment],
   );
 
   const handleDecrement = React.useCallback(
-    async (id: string) => {
+    async (id: string): Promise<void> => {
       await decrement(id);
     },
     [decrement],

@@ -92,8 +92,8 @@ describe('Cart Context', () => {
       fireEvent.press(getByTestId('add-to-cart'));
     });
 
-    // await wait(() => expect(getByText('Test product')).toBeTruthy());
-    // await wait(() => expect(getByText('1')).toBeTruthy());
+    await wait(() => expect(getByText('Test product')).toBeTruthy());
+    await wait(() => expect(getByText('1')).toBeTruthy());
   });
 
   it('should be able to increment quantity', async () => {
@@ -111,7 +111,7 @@ describe('Cart Context', () => {
       fireEvent.press(getByTestId('increment'));
     });
 
-    // await wait(async () => expect(getByText('2')).toBeTruthy());
+    await wait(async () => expect(getByText('2')).toBeTruthy());
   });
 
   it('should be able to decrement quantity', async () => {
@@ -133,7 +133,7 @@ describe('Cart Context', () => {
       fireEvent.press(getByTestId('decrement'));
     });
 
-    // await wait(() => expect(getByText('1')).toBeTruthy());
+    await wait(() => expect(getByText('1')).toBeTruthy());
   });
 
   it('should load products from AsyncStorage', async () => {

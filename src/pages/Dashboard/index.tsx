@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 
 import { View } from 'react-native';
-
+import { useNavigation } from '@react-navigation/native';
 import formatValue from '../../utils/formatValue';
 import { useCart } from '../../hooks/cart';
 import api from '../../services/api';
@@ -31,6 +31,7 @@ interface Product {
 
 const Dashboard: React.FC = () => {
   const { addToCart } = useCart();
+  const navigation = useNavigation();
 
   const [products, setProducts] = useState<Product[]>([]);
 
@@ -49,13 +50,10 @@ const Dashboard: React.FC = () => {
 
   const handleAddToCart = React.useCallback(
     async (item: Product) => {
-      try {
-        await addToCart(item);
-      } catch (err) {
-        console.log(err);
-      }
+      await addToCart(item);
+      navigation.navigate('Cart');
     },
-    [addToCart],
+    [addToCart, navigation],
   );
 
   return (
