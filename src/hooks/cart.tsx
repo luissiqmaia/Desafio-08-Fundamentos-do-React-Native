@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React, {
   createContext,
   useState,
@@ -30,10 +31,14 @@ const CartProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     async function loadProducts(): Promise<void> {
-      const productsStorage = await AsyncStorage.getItem(
-        '@GoMarketplace:products',
-      );
-      setProducts(productsStorage ? [...JSON.parse(productsStorage)] : []);
+      try {
+        const productsStorage = await AsyncStorage.getItem(
+          '@GoMarketplace:products',
+        );
+        setProducts(productsStorage ? [...JSON.parse(productsStorage)] : []);
+      } catch (err) {
+        console.log('Hooks cart', err);
+      }
     }
 
     loadProducts();
@@ -58,8 +63,7 @@ const CartProvider: React.FC = ({ children }) => {
       const productIndex = products.findIndex(p => p.id === product.id);
 
       if (productIndex >= 0) {
-        increment(product.id);
-        return;
+        await increment(product.id);
       }
       const newProducts = [...products, { ...product, quantity: 1 }];
       setProducts(newProducts);
@@ -95,8 +99,13 @@ const CartProvider: React.FC = ({ children }) => {
   );
 
   const value = React.useMemo(
-    () => ({ addToCart, increment, decrement, products }),
-    [products, addToCart, increment, decrement],
+    () => ({
+      addToCart,
+      increment,
+      decrement,
+      products,
+    }),
+    [addToCart, increment, decrement, products],
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

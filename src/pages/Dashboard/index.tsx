@@ -49,7 +49,11 @@ const Dashboard: React.FC = () => {
 
   const handleAddToCart = React.useCallback(
     async (item: Product) => {
-      await addToCart(item);
+      try {
+        await addToCart(item);
+      } catch (err) {
+        console.log(err);
+      }
     },
     [addToCart],
   );
